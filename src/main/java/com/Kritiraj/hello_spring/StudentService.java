@@ -1,11 +1,13 @@
 package com.Kritiraj.hello_spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
 
-    StudentRepository studentRepository = new StudentRepository();
+    @Autowired
+    StudentRepository studentRepository;
     public Student getStudent(int admno) {
        return studentRepository.getStudent((admno));
     }

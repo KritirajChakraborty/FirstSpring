@@ -1,5 +1,6 @@
 package com.Kritiraj.hello_spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -8,7 +9,9 @@ import java.util.Map;
 @RestController
 public class StudentController {
 
-     StudentService studentService = new StudentService();
+    //this is how IOC works, below is bean(object created and maintained by Spring)
+    @Autowired
+     StudentService studentService;
 
     // API endpoints
 
