@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/student")
@@ -19,21 +18,34 @@ public class StudentController {
     // API endpoints
 
     @GetMapping("/get-student") // www.student-app.com/student/get-student?id=1000
-    public ResponseEntity getStudentByRequestParam(@RequestParam("id") int admno) {
+    public ResponseEntity<Student> getStudentByRequestParam(@RequestParam("id") int admno) {
         Student student = studentService.getStudent(admno);
-        return new ResponseEntity(student, HttpStatus.OK);
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
     @GetMapping("/get-student/{id}") // www.student-app.com/student/get-student/1000
-    public ResponseEntity getStudentByPathVariable(@PathVariable("id") int admno) {
+    public ResponseEntity<Student> getStudentByPathVariable(@PathVariable("id") int admno) {
         Student student = studentService.getStudent(admno);
-        return new ResponseEntity(student,HttpStatus.OK);
+        return new ResponseEntity<Student>(student,HttpStatus.OK);
     }
 
     @PostMapping("/add") //www.student-app.com/student/add
-    public ResponseEntity addStudent(@RequestBody Student student) {
+    public ResponseEntity<String> addStudent(@RequestBody Student student) {
         String message = studentService.postStudent(student);
-        return new ResponseEntity(message,HttpStatus.CREATED);
+        return new ResponseEntity<String>(message,HttpStatus.CREATED);
+    }
+
+    //WRITING TEACHER CONTROLLER HERE FOR BETTER SIMPLICITY
+    @GetMapping("/get-teacher-by-name")
+    public ResponseEntity<Teacher> getTeacher(@RequestParam("name") String name) {
+        Teacher teacher = studentService.getTeacherByName(name);
+        return new ResponseEntity<Teacher>(teacher,HttpStatus.FOUND);
+    }
+
+    @PostMapping("add-teacher")
+    public ResponseEntity<String> addTeacher(@RequestBody Teacher teacher) {
+        String message = studentService.addTeacher(teacher);
+        return new ResponseEntity<String>(message,HttpStatus.CREATED);
     }
 }
 
